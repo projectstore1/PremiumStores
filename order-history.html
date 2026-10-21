@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - PremiumStore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Assets/css/style.css">
+    <style>
+        .order-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .feedback-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--container-radius);
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+        .star-rating {
+            display: flex;
+            gap: 8px;
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        .star-rating .fas.active {
+            color: #eab308;
+        }
+        .review-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <button id="themeToggleBtn" class="theme-toggle-btn"><i class="fas fa-moon"></i></button>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Logo">
+                <span>PremiumStore</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="order-history.html" class="active"><i class="fas fa-box-open"></i> Orders</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="section-header">
+                <h2>Customer Order History</h2>
+                <p>Showing your latest orders (auto-refreshes every 30 seconds).</p>
+            </div>
+
+            <div id="ordersListContainer">
+                <p style="color: var(--text-secondary);">Loading orders...</p>
+            </div>
+
+            <div class="feedback-section">
+                <h3 style="margin-bottom: 15px;">Leave a Review</h3>
+                <form id="reviewForm">
+                    <div class="star-rating" id="starRating">
+                        <i class="fas fa-star active" data-rating="1"></i>
+                        <i class="fas fa-star active" data-rating="2"></i>
+                        <i class="fas fa-star active" data-rating="3"></i>
+                        <i class="fas fa-star active" data-rating="4"></i>
+                        <i class="fas fa-star active" data-rating="5"></i>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <input type="text" id="reviewTwitter" class="form-control" placeholder="Twitter/X Username (e.g., @username)" required style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary);">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <textarea id="reviewText" class="form-control" placeholder="Write your review here..." required style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color); background:var(--bg-primary); color:var(--text-primary); min-height:100px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="padding: 12px 24px; border-radius: var(--btn-radius); border: none; font-weight: 700; cursor: pointer; color:white;">Submit Review</button>
+                </form>
+
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Customer Reviews</h3>
+                <div id="reviewsListContainer">
+                    <p style="color: var(--text-secondary);">Loading reviews...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>Developed by Abdullha Khan 💻</p></div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="Assets/js/firebase-config.js"></script>
+    <script src="Assets/js/order-history.js"></script>
+</body>
+</html>
