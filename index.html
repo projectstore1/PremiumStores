@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PremiumStore - Digital Subscriptions & Services</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="Assets/css/style.css">
+</head>
+<body>
+
+    <!-- THEME TOGGLE BUTTON -->
+    <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="PremiumStore Logo">
+                <span>PremiumStore</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="order-history.html"><i class="fas fa-box-open"></i> Orders</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- BANNER SLIDER -->
+            <section class="banner-section">
+                <div class="banner-slider" id="bannerSlider">
+                    <!-- Banners loaded dynamically from Firebase -->
+                    <div class="banner-slide active">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="Banner">
+                    </div>
+                </div>
+                <div class="banner-dots" id="bannerDots"></div>
+            </section>
+
+            <!-- NOTICE LINE -->
+            <section class="notice-section">
+                <div class="notice-pill">
+                    <i class="fas fa-credit-card notice-icon-left"></i>
+                    <span id="noticeText">Pay: bkash, Nagad, Rocket, Visa, Mastercard</span>
+                    <i class="fas fa-shield-alt notice-icon-right"></i>
+                </div>
+            </section>
+
+            <!-- PRODUCT CATALOG -->
+            <section class="catalog-section">
+                <div class="section-header">
+                    <h2>Available Subscriptions</h2>
+                    <p>Instant delivery for all premium digital accounts and services.</p>
+                </div>
+                <div class="product-grid" id="productGrid">
+                    <!-- Products loaded dynamically from Firebase -->
+                    <div class="product-card skeleton"></div>
+                    <div class="product-card skeleton"></div>
+                    <div class="product-card skeleton"></div>
+                    <div class="product-card skeleton"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>Developed by Abdullha Khan 💻</p>
+        </div>
+    </footer>
+
+    <!-- FIREBASE SDKS -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <!-- APPLICATION SCRIPTS -->
+    <script src="Assets/js/firebase-config.js"></script>
+    <script src="Assets/js/app.js"></script>
+</body>
+</html>
