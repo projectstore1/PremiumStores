@@ -3,11 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const savedTheme = localStorage.getItem('theme') || 'light';
     htmlEl.setAttribute('data-theme', savedTheme);
-    themeToggleBtn.addEventListener('click', () => {
-        const t = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-        htmlEl.setAttribute('data-theme', t);
-        localStorage.setItem('theme', t);
-    });
+    
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const t = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            htmlEl.setAttribute('data-theme', t);
+            localStorage.setItem('theme', t);
+            themeToggleBtn.innerHTML = t === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+        themeToggleBtn.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
 
     const productDataStr = localStorage.getItem('selectedProduct');
     if (!productDataStr) {
@@ -19,14 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('productSummary').innerHTML = `
         <div class="summary-row"><span>Product:</span> <span>${product.productName}</span></div>
         <div class="summary-row"><span>Plan:</span> <span>${product.plan}</span></div>
-        <div class="summary-row"><span>Price (USD):</span> <span>$${product.price.toFixed(2)}</span></div>
-        <div class="summary-row"><span>Price (Naira):</span> <span>₦${product.nairaPrice.toLocaleString()}</span></div>
+        <div class="summary-row"><span>Price (USD):</span> <span>$${Number(product.price).toFixed(2)}</span></div>
+        <div class="summary-row"><span>Price (Naira):</span> <span>₦${(product.nairaPrice || product.price * 1440).toLocaleString()}</span></div>
     `;
 
-    document.getElementById('userFieldLabel').textContent = product.userFieldLabel;
+    document.getElementById('userFieldLabel').textContent = product.userFieldLabel || 'Username';
     const userInput = document.getElementById('userInfoInput');
-    userInput.placeholder = product.userFieldPlaceholder;
-    userInput.required = product.userFieldRequired;
+    userInput.placeholder = product.userFieldPlaceholder || '@username';
 
     let selectedCurrency = 'crypto';
     document.querySelectorAll('.currency-card').forEach(card => {
@@ -46,10 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            navigator.clipboard.writeText(btn.getAttribute('data-copy'));
-            const originalText = btn.textContent;
-            btn.textContent = 'Copied!';
-            setTimeout(() => btn.textContent = originalText, 2000);
+            const textToCopy = btn.getAttribute('data-copy');
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => btn.innerHTML = originalHtml, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
         });
     });
 
@@ -57,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const submitBtn = e.target.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Processing Order...';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Order...';
 
         try {
             const counterRef = db.collection('settings').doc('orderCounter');
@@ -78,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 planId: product.planId,
                 plan: product.plan,
                 userInfo: userInput.value,
-                userFieldLabel: product.userFieldLabel,
-                price: product.price,
-                nairaPrice: product.nairaPrice,
+                userFieldLabel: product.userFieldLabel || 'Username',
+                price: Number(product.price),
+                nairaPrice: Number(product.nairaPrice || product.price * 1440),
                 currency: selectedCurrency,
                 paymentMethod: selectedCurrency === 'crypto' ? 'Crypto' : 'Naira',
                 status: 'pending',
@@ -98,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 productName: product.productName,
                 plan: product.plan,
                 userInfo: userInput.value,
-                userFieldLabel: product.userFieldLabel,
-                price: product.price,
-                nairaPrice: product.nairaPrice,
+                userFieldLabel: product.userFieldLabel || 'Username',
+                price: Number(product.price),
+                nairaPrice: Number(product.nairaPrice || product.price * 1440),
                 currency: selectedCurrency,
                 paymentMethod: selectedCurrency === 'crypto' ? 'Crypto' : 'Naira',
                 status: 'pending',
@@ -114,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error creating order:', error);
             alert('Failed to process order. Please try again.');
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Confirm Order';
+            submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Confirm Order';
         }
     });
 });
