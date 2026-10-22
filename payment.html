@@ -21,6 +21,7 @@
             border-radius: 12px;
             padding: 15px;
             margin-bottom: 25px;
+            border: 1px solid var(--border-color);
         }
         .summary-row {
             display: flex;
@@ -62,6 +63,7 @@
             cursor: pointer;
             background: var(--bg-primary);
             font-weight: 700;
+            color: var(--text-primary);
         }
         .currency-card.active {
             border-color: var(--accent);
@@ -93,17 +95,22 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.85rem;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <button id="themeToggleBtn" class="theme-toggle-btn"><i class="fas fa-moon"></i></button>
+    <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme"><i class="fas fa-moon"></i></button>
     <header class="site-header">
         <div class="header-container">
             <a href="index.html" class="logo">
                 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Logo">
                 <span>PremiumStore</span>
             </a>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="order-history.html"><i class="fas fa-box-open"></i> Orders</a>
+            </nav>
         </div>
     </header>
 
@@ -113,7 +120,7 @@
                 <h2 style="margin-bottom: 20px;">Complete Your Payment</h2>
                 
                 <div class="summary-box" id="productSummary">
-                    <!-- Summary populated dynamically -->
+                    <div class="summary-row"><span>Loading summary...</span></div>
                 </div>
 
                 <form id="paymentForm">
@@ -124,42 +131,42 @@
 
                     <label style="display: block; margin-bottom: 8px; font-weight: 700;">Select Payment Currency</label>
                     <div class="currency-selector">
-                        <div class="currency-card active" data-currency="crypto">🪙 Crypto</div>
-                        <div class="currency-card" data-currency="naira">🇳🇬 Naira</div>
+                        <div class="currency-card active" data-currency="crypto"><i class="fas fa-coins"></i> Crypto</div>
+                        <div class="currency-card" data-currency="naira"><i class="fas fa-money-bill-wave"></i> Naira</div>
                     </div>
 
                     <div class="details-box" id="cryptoDetails">
-                        <h4 style="margin-bottom: 10px;">Crypto Deposit Addresses</h4>
+                        <h4 style="margin-bottom: 10px;"><i class="fas fa-wallet"></i> Crypto Deposit Addresses</h4>
                         <div class="address-item">
                             <div><strong>EVM:</strong> <span id="evmAddr">0x2711d473156609B418Fb41d340fF361A4297D278</span></div>
-                            <button type="button" class="copy-btn" data-copy="0x2711d473156609B418Fb41d340fF361A4297D278">Copy</button>
+                            <button type="button" class="copy-btn" data-copy="0x2711d473156609B418Fb41d340fF361A4297D278"><i class="fas fa-copy"></i> Copy</button>
                         </div>
                         <div class="address-item">
                             <div><strong>Aptos:</strong> <span id="aptosAddr">0x04290f34f95a759252a60b009fc81a2dd663b392fa9bfdfa736a52bf86545218</span></div>
-                            <button type="button" class="copy-btn" data-copy="0x04290f34f95a759252a60b009fc81a2dd663b392fa9bfdfa736a52bf86545218">Copy</button>
+                            <button type="button" class="copy-btn" data-copy="0x04290f34f95a759252a60b009fc81a2dd663b392fa9bfdfa736a52bf86545218"><i class="fas fa-copy"></i> Copy</button>
                         </div>
                         <div class="address-item">
                             <div><strong>Solana:</strong> <span id="solAddr">H9fJSQFxMjYcWn48LmTkWtzMr7ZLFt2EXdKDNHsvyFDy</span></div>
-                            <button type="button" class="copy-btn" data-copy="H9fJSQFxMjYcWn48LmTkWtzMr7ZLFt2EXdKDNHsvyFDy">Copy</button>
+                            <button type="button" class="copy-btn" data-copy="H9fJSQFxMjYcWn48LmTkWtzMr7ZLFt2EXdKDNHsvyFDy"><i class="fas fa-copy"></i> Copy</button>
                         </div>
                     </div>
 
                     <div class="details-box" id="nairaDetails" style="display: none;">
-                        <h4 style="margin-bottom: 10px;">Naira Bank Details</h4>
+                        <h4 style="margin-bottom: 10px;"><i class="fas fa-university"></i> Naira Bank Details</h4>
                         <div class="address-item">
                             <div><strong>PalmPay:</strong> 6669361510</div>
-                            <button type="button" class="copy-btn" data-copy="6669361510">Copy</button>
+                            <button type="button" class="copy-btn" data-copy="6669361510"><i class="fas fa-copy"></i> Copy</button>
                         </div>
                         <div class="address-item">
                             <div><strong>9PSB:</strong> 6019315948</div>
-                            <button type="button" class="copy-btn" data-copy="6019315948">Copy</button>
+                            <button type="button" class="copy-btn" data-copy="6019315948"><i class="fas fa-copy"></i> Copy</button>
                         </div>
                         <div class="address-item" style="flex-direction: column; align-items: flex-start; gap: 4px;">
                             <div><strong>Account Name:</strong> BillStack / Nasfam_Pay – MD ABDULLAH</div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 16px; font-size: 1.1rem; margin-top: 10px;">Confirm Order</button>
+                    <button type="submit" class="btn btn-success" style="width: 100%; padding: 16px; font-size: 1.1rem; margin-top: 10px; border-radius: var(--btn-radius); background: var(--success); color: white; border: none; font-weight: 700; cursor: pointer;"><i class="fas fa-check-circle"></i> Confirm Order</button>
                 </form>
             </div>
         </div>
